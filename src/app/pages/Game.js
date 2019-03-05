@@ -57,7 +57,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div ref={this.svgRef} onClick={e => console.log(e.target)}>
+      <div>
         {images[this.state.score] && <SVGInline svg={images[this.state.score]} />}
         {!images[this.state.score] && <p>You are amazing and Won</p>}
       </div>

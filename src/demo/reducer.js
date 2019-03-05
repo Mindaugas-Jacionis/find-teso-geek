@@ -1,0 +1,12 @@
+import * as types from './actionTypes';
+
+const DEFAULT_STATE = { count: 0 };
+
+export default (state = DEFAULT_STATE, { type }) => {
+  switch (type) {
+    case types.DEMO:
+      return { ...state, count: state.count + 1 };
+    default:
+      return state;
+  }
+};

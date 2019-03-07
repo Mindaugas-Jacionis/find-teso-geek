@@ -9,6 +9,7 @@
   },
   "author": "Mindaugas Jačionis",
   "dependencies": {
+    "dotenv-webpack": "^1.7.0",
     "firebase": "^5.8.5",
     "idx": "^2.5.4",
     "react": "^16.8.3",

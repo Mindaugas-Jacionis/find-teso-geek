@@ -5,6 +5,7 @@ const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const { paths } = require('./webpack.constants');
 
@@ -42,6 +43,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({ filename: '[name].bundle.css' }),
+    new Dotenv(),
     new CopyWebpackPlugin([]),
     new HtmlWebpackPlugin({
       template: path.join(paths.STATIC, 'index.html'),

@@ -4,10 +4,13 @@
   "scripts": {
     "prebuild": "rm -rf build",
     "build": "webpack --config=webpack.prod.config.js",
-    "develop": "webpack-dev-server --config webpack.dev.config.js --open --color"
+    "develop": "webpack-dev-server --config webpack.dev.config.js --open --color",
+    "deploy": "yarn build && firebase deploy"
   },
   "author": "Mindaugas Jačionis",
   "dependencies": {
+    "dotenv-webpack": "^1.7.0",
+    "firebase": "^5.8.5",
     "idx": "^2.5.4",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import demo from '~/demo';
+import players from '~/players';
 
 export default combineReducers({
-  [demo.constants.NAME]: demo.reducer,
+  [players.constants.NAME]: players.reducer,
 });

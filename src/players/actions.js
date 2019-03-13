@@ -36,8 +36,6 @@ export const newPlayer = data => {
     .ref(DB_TABLE)
     .push(data);
 
-  console.log('Hi', currentPlayer, data);
-
   return {
     type: types.NEW_PLAYER,
     payload: { ...data, id: currentPlayer.key },
@@ -45,9 +43,7 @@ export const newPlayer = data => {
 };
 
 export const updatePlayer = (player, id) => {
-  const updated = playersRef.child(id).update(player);
-
-  console.log(updated, data, id);
+  playersRef.child(id).update(player);
 
   return {
     type: types.UPDATE_PLAYER,
@@ -57,3 +53,7 @@ export const updatePlayer = (player, id) => {
     },
   };
 };
+
+export const resetPlayer = () => ({
+  type: types.RESET_PLAYER,
+});

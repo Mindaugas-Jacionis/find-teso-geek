@@ -29,7 +29,8 @@ const Container = styled.div`
 
     button:enabled {
       background: #00e778;
-      color: #242424;
+      border: 2px solid #00e778;
+      color: #fff;
       cursor: pointer;
       transition: background 0.3s;
 

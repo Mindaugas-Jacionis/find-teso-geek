@@ -13,8 +13,6 @@ const DB_DOC = firebaseSetup.database().ref('demo');
 export const demo = () => dispatch => {
   const { key } = DB_DOC.update({ count: Math.floor(Math.random() * 10000) });
 
-  console.log('key', key);
-
   setTimeout(() => {
     dispatch({ type: types.DEMO });
   }, 1000);

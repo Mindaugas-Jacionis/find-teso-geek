@@ -31,6 +31,9 @@ export default (state = DEFAULT_STATE, { type, payload }) => {
         }),
       };
 
+    case types.RESET_PLAYER:
+      return { ...state, currentPlayer: DEFAULT_STATE.currentPlayer };
+
     default:
       return state;
   }

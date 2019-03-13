@@ -39,6 +39,18 @@ module.exports = {
         test: /\.svg$/,
         loader: 'raw-loader',
       },
+      // Font files
+      {
+        test: /\.(woff|woff2|ttf|otf)$/,
+        loader: 'file-loader',
+        include: [/fonts/],
+
+        options: {
+          name: '[hash].[ext]',
+          outputPath: 'css/',
+          publicPath: url => '../css/' + url,
+        },
+      },
     ],
   },
   plugins: [

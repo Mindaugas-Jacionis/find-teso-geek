@@ -46,12 +46,23 @@ class App extends React.Component {
   handleTesoGeek = () => {
     const { score } = this.state;
 
-    if (images.length > score) {
-      this.tesoGeek = document.getElementById('Programmer');
+    if (images.length > score && !this.tesoGeek) {
+      const foundGeek = document.getElementById('Programmer');
 
-      if (this.tesoGeek) {
+      if (foundGeek) {
+        this.tesoGeek = foundGeek;
         this.tesoGeek.addEventListener('click', () => {
-          this.setState(state => ({ score: state.score + 1 }));
+          this.setState(
+            state => ({ score: state.score + 1 }),
+            () => {
+              const { score } = this.state;
+
+              if (!images[score]) {
+                this.interval = clearInterval(this.interval);
+                this.finishGame();
+              }
+            },
+          );
           this.tesoGeek = null;
         });
         this.interval = clearInterval(this.interval);
@@ -63,20 +74,26 @@ class App extends React.Component {
     }
   };
 
-  startTimer = () => {
-    const { history } = this.props;
+  finishGame = () => {
+    const { time, score } = this.state;
+    const { updatePlayer, currentPlayerId, history } = this.props;
+    const finalScore = score + time;
 
+    this.timeInterval = clearInterval(this.timeInterval);
+    updatePlayer({ score: finalScore }, currentPlayerId);
+    history.push('/finish');
+  };
+
+  startTimer = () => {
     this.timeInterval = setInterval(() => {
       this.setState(
         state => ({ time: state.time - 1 }),
         () => {
           const { time, score } = this.state;
-          const { updatePlayer, currentPlayerId } = this.props;
 
           if (time === 0) {
             this.timeInterval = clearInterval(this.timeInterval);
-            updatePlayer({ score }, currentPlayerId);
-            history.push('/finish');
+            this.finishGame();
           }
         },
       );
@@ -104,7 +121,6 @@ class App extends React.Component {
       <div>
         <Timer>{`Time: ${time} / Score: ${score}`}</Timer>
         {images[this.state.score] && <SVGInline svg={images[this.state.score]} />}
-        {!images[this.state.score] && <p>You are amazing and Won</p>}
       </div>
     );
   }

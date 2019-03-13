@@ -1,5 +1,9 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import SVGInline from 'react-svg-inline';
+
+import players from '~/players';
 
 function importAll(r) {
   return r.keys().map(r);
@@ -12,9 +16,11 @@ class App extends React.Component {
     super(props);
     this.state = {
       score: 0,
+      time: 30,
     };
     this.tesoGeek = null;
     this.interval = null;
+    this.timeInterval = null;
   }
 
   startInterval = () => {
@@ -43,8 +49,29 @@ class App extends React.Component {
     }
   };
 
+  startTimer = () => {
+    const { history } = this.props;
+
+    this.timeInterval = setInterval(() => {
+      this.setState(
+        state => ({ time: state.time - 1 }),
+        () => {
+          const { time, score } = this.state;
+          const { updatePlayer, currentPlayerId } = this.props;
+
+          if (time === 0) {
+            this.timeInterval = clearInterval(this.timeInterval);
+            updatePlayer({ score }, currentPlayerId);
+            history.push('/finish');
+          }
+        },
+      );
+    }, 1000);
+  };
+
   componentDidMount() {
     this.handleTesoGeek();
+    this.startTimer();
   }
 
   componentDidUpdate() {
@@ -53,11 +80,15 @@ class App extends React.Component {
 
   componentWillUnmount() {
     this.interval = clearInterval(this.interval);
+    this.timeInterval = clearInterval(this.timeInterval);
   }
 
   render() {
+    const { time } = this.state;
+
     return (
       <div>
+        <div>{time}</div>
         {images[this.state.score] && <SVGInline svg={images[this.state.score]} />}
         {!images[this.state.score] && <p>You are amazing and Won</p>}
       </div>
@@ -65,4 +96,11 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const enhance = connect(
+  state => ({
+    currentPlayerId: players.selectors.getCurrentPlayerId(state),
+  }),
+  dispatch => bindActionCreators({ updatePlayer: players.actions.updatePlayer }, dispatch),
+);
+
+export default enhance(App);

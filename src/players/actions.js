@@ -45,9 +45,10 @@ export const newPlayer = data => {
 };
 
 export const updatePlayer = (player, id) => {
+  console.log(player, id);
   const updated = playersRef.child(id).update(player);
 
-  console.log(updated, data, id);
+  console.log(updated, player, id);
 
   return {
     type: types.UPDATE_PLAYER,

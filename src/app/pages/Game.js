@@ -2,6 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SVGInline from 'react-svg-inline';
+import styled from 'styled-components';
 
 import players from '~/players';
 
@@ -10,6 +11,19 @@ function importAll(r) {
 }
 
 const images = importAll(require.context('../../static/svg/', false, /\.svg$/));
+
+const Timer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 32px;
+  line-height: 42px;
+  font-weight: 700;
+  background: #3c3c3c;
+  padding: 0 35px;
+  border-radius: 5px;
+  color: #ffea00;
+`;
 
 class App extends React.Component {
   constructor(props) {
@@ -84,11 +98,11 @@ class App extends React.Component {
   }
 
   render() {
-    const { time } = this.state;
+    const { time, score } = this.state;
 
     return (
       <div>
-        <div>{time}</div>
+        <Timer>{`Time: ${time} / Score: ${score}`}</Timer>
         {images[this.state.score] && <SVGInline svg={images[this.state.score]} />}
         {!images[this.state.score] && <p>You are amazing and Won</p>}
       </div>

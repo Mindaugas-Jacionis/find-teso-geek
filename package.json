@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "prebuild": "rm -rf build",
-    "build": "webpack --config=webpack.prod.config.js",
+    "build": "node --max_old_space_size=8000 node_modules/webpack/bin/webpack.js --config=webpack.prod.config.js",
     "develop": "webpack-dev-server --config webpack.dev.config.js --open --color",
     "deploy": "yarn build && firebase deploy"
   },

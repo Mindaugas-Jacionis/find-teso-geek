@@ -90,8 +90,8 @@ class Start extends React.Component {
                   <Field name="agree" component="input" type="checkbox" />
                 </div>
                 <p>
-                  By submitting this form you agree that your contactinformation would be used for
-                  marketing and recruitmentpurposes.
+                  By submitting this form you agree that your contact information would be used for
+                  marketing and recruitment purposes.
                 </p>
               </div>
               <button type="submit" disabled={pristine || invalid}>

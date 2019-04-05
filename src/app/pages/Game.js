@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 import SVGInline from 'react-svg-inline';
 import styled from 'styled-components';
 
+import randomizeArray from '~/randomize-array';
 import players from '~/players';
 
 function importAll(r) {
   return r.keys().map(r);
 }
 
-const images = importAll(require.context('../../static/svg/', false, /\.svg$/));
+const images = randomizeArray(importAll(require.context('../../static/svg/', false, /\.svg$/)));
 
 const Timer = styled.div`
   position: absolute;

@@ -13,7 +13,7 @@ module.exports = merge.smart(baseConfig, {
       new TerserPlugin({
         cache: true,
         parallel: true,
-        sourceMap: true,
+        // sourceMap: true,
       }),
       new OptimizeCSSAssetsPlugin({}),
     ],
